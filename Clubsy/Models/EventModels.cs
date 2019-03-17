@@ -16,11 +16,12 @@ namespace Clubsy.Models
             this.Name = name;
         }
 
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; }
+        public int Id { get; set; }
 
         [Required]
-        public Club Club { get; }
+        public Club Club { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -45,6 +46,7 @@ namespace Clubsy.Models
             this.User = user;
         }
 
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 

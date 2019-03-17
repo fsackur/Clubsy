@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Clubsy.Models.Club>
+
+@{
+    ViewBag.Title = "Clubs";
+}
+
+<h2>Clubs</h2>
+
+@foreach (var item in Model)
+{
+    <div class="club">
+        @Html.Partial("_Club", item)
+    </div>
+}
+<p>
+    @Html.ActionLink("New", "Create")
+</p>
