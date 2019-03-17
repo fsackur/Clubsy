@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Clubsy.Models
 {
@@ -17,6 +18,8 @@ namespace Clubsy.Models
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+
+        public virtual IEnumerable<Event> Events { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
