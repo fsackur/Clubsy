@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Web.Http.Description;
 using Clubsy.Models;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Clubsy.Controllers
 {
@@ -31,13 +32,23 @@ namespace Clubsy.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Club club)
         {
             if (ModelState.IsValid)
             {
-                db.Clubs.Add(club);
-                db.SaveChanges();
+                //var admin = new ClubMember()
+                //{
+                //    ClubId = club.Id,
+                //    UserId = User.Identity.GetUserId(),
+                //    IsAdmin = true
+                //};
+                //club.Members.Add(admin);
+                //club.Admins.Add(admin);
+
+                //db.Clubs.Add(club);
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();

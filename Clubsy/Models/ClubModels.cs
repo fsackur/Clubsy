@@ -11,33 +11,56 @@ namespace Clubsy.Models
 {
     public class Club
     {
-        public Club ()
+        public Club()
         {
-            this.Admins = new List<ApplicationUser>();
-            //this.Admins.Add(UserManager<ApplicationUser, string>.FindById(HttpContext.Current.User.Identity.GetUserId());
-            
+            Members = new List<ClubMember>();
+            //Admins = new List<ClubMember>();
         }
-        //public Club (string name, string description)
-        //{
-        //    this.Name = name;
-        //    this.Description = description;
-        //}
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
         [StringLength(50)]
         public string Name { get; set; }
 
         [StringLength(1000)]
         public string Description { get; set; }
 
-        //[Required]
-        //[MinLength(1)]
-        public virtual ICollection<ApplicationUser> Admins { get; set; }
+        public virtual ICollection<ClubMember> Members { get; set; }
+        public virtual ICollection<ClubMember> Admins {
+            get {
+                return this.Members.Where(m => m.IsAdmin).ToList();
+            }
+        }
+    }
 
-        public virtual ICollection<Event> Events { get; set; }
+    public class ClubMember
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        //[Required]
+        //[ForeignKey("Club")]
+        //[Index("IX_FirstAndSecond", 1, IsUnique = true)]
+        //public int ClubId { get; set; }
+
+        //[Required]
+        //[StringLength(128)]
+        //[Column(TypeName = "NVARCHAR")]
+        //[ForeignKey("ApplicationUser")]
+        //[Index("IX_FirstAndSecond", 2, IsUnique = true)]
+        //public string UserId { get; set; }
+
+        public bool IsAdmin { get; set; }
+
+        //[ForeignKey("Club")]
+        public virtual Club Club { get; set; }
+
+        //[ForeignKey("ApplicationUser")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
