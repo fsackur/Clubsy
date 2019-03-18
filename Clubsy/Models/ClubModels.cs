@@ -40,7 +40,7 @@ namespace Clubsy.Models
     public class ClubMember
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         //[Required]

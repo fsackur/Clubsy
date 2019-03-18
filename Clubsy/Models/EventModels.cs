@@ -9,13 +9,6 @@ namespace Clubsy.Models
 {
     public class Event
     {
-        public Event (Club club, DateTime time, string name = "Meetup")
-        {
-            this.Club = club;
-            this.Time = time;
-            this.Name = name;
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

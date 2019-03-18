@@ -19,7 +19,8 @@ namespace Clubsy.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<Clubsy.Models.Club> Clubs { get; set; }
-        public System.Data.Entity.DbSet<Clubsy.Models.ClubMember> ClubMembers { get; set; }
+        public System.Data.Entity.DbSet<Club> Clubs { get; set; }
+        public System.Data.Entity.DbSet<ClubMember> ClubMembers { get; set; }
+        public System.Data.Entity.DbSet<Event> Events { get; set; }
     }
 }

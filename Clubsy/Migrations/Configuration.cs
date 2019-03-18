@@ -17,6 +17,14 @@ namespace Clubsy.Migrations
             ContextKey = "Clubsy.Models.ApplicationDbContext";
         }
 
+        private DateTime GetNextNamedWeekday(DateTime start, DayOfWeek day)
+        {
+            // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
+            int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
+            var nextDay = start.AddDays(daysToAdd);
+            return start.AddDays(daysToAdd);
+        }
+
         protected override void Seed(Clubsy.Models.ApplicationDbContext db)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -105,6 +113,38 @@ namespace Clubsy.Migrations
                 IsAdmin = true
             };
             db.ClubMembers.AddOrUpdate(chesterMembership);
+
+
+
+            var kickabout = new Event()
+            {
+                Club = norfolkenchants,
+                Time = GetNextNamedWeekday(DateTime.Today.AddDays(1), DayOfWeek.Tuesday).AddHours(18),
+                Name = "Training session",
+                Description = "Sprints, keepy-uppies and shooting practice."
+            };
+
+            var league = new Event()
+            {
+                Club = norfolkenchants,
+                Time = GetNextNamedWeekday(DateTime.Today.AddDays(1), DayOfWeek.Saturday).AddHours(13),
+                Name = "High Barnet Chicken Cottage Cup",
+                Description = "League match"
+            };
+
+            var knightOut = new Event()
+            {
+                Club = chessbursters,
+                Time = GetNextNamedWeekday(DateTime.Today.AddDays(1), DayOfWeek.Thursday).AddHours(19),
+                Name = "Knight Out!",
+                Description = "Weekly meetup on Bishopsgate. Board provided."
+            };
+
+            db.Events.AddOrUpdate(kickabout);
+            db.Events.AddOrUpdate(league);
+            db.Events.AddOrUpdate(knightOut);
+
+            
 
             // Uncomment this to attach a separate VS instance when migrating with Update-Databases
             //if (!System.Diagnostics.Debugger.IsAttached)
