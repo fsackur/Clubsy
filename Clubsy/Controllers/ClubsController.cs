@@ -14,10 +14,8 @@ using Microsoft.AspNet.Identity;
 
 namespace Clubsy.Controllers
 {
-    public class ClubsController : Controller
+    public class ClubsController : BaseController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         public ActionResult Index()
         {
             var model = db.Clubs.ToList();
