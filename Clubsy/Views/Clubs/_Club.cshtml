@@ -1,31 +1,16 @@
 ﻿@model Clubsy.Models.Club
 
 <div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Members)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Admins)
-        </dd>*@
-    </dl>
-
-    Details | Join
+    <div class="club" title="@Model.Name">
+        <div class="container club-title-bar">
+            <span class="container club-name">@Html.DisplayFor(model => model.Name)</span>
+            @*<div class="club-links">*@
+                <ul>
+                    <li>Details</li>
+                    <li>Join</li>
+                </ul>
+            @*</div>*@
+        </div>
+        <article class="club-description">@Html.DisplayFor(model => model.Description)</article>
+    </div>
 </div>

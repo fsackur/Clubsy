@@ -5,6 +5,9 @@
 }
 
 <h2>Clubs</h2>
+<p>
+    @Html.ActionLink("Start a new club", "Create")
+</p>
 
 @foreach (var item in Model)
 {
@@ -12,6 +15,4 @@
         @Html.Partial("_Club", item)
     </div>
 }
-<p>
-    @Html.ActionLink("New", "Create")
-</p>
+

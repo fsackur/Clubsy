@@ -22,3 +22,42 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.club-title-bar {
+    background-color: cornflowerblue;
+    border-radius: 2px;
+    width: 100%;
+    float: left;
+    display: inline-block;
+    vertical-align: middle;
+    list-style: none;
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.club-name {
+    font-size: large;
+    float: left;
+}
+
+.club-title-bar > ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.club-title-bar > ul > li {
+    position: relative;
+    float: left;
+    display: block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.club-description {
+    padding: 8px 8px 20px 30px;
+}
