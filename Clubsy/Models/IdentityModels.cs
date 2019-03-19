@@ -21,7 +21,7 @@ namespace Clubsy.Models
 
         public virtual IEnumerable<Event> Events { get; set; }
 
-        public virtual ICollection<ClubMember> Memberships { get; set; }
+        public virtual ICollection<ClubMembership> Memberships { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

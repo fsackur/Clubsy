@@ -20,7 +20,7 @@ namespace Clubsy.Models
         }
 
         public System.Data.Entity.DbSet<Club> Clubs { get; set; }
-        public System.Data.Entity.DbSet<ClubMember> ClubMembers { get; set; }
+        public System.Data.Entity.DbSet<ClubMembership> Memberships { get; set; }
         public System.Data.Entity.DbSet<Event> Events { get; set; }
     }
 }

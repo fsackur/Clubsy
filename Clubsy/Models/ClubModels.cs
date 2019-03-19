@@ -24,7 +24,7 @@ namespace Clubsy.Models
         public string Description { get; set; }
     }
 
-    public class ClubMember
+    public class ClubMembership
     {
         [Key]
         public int Id { get; set; }

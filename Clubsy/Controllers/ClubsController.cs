@@ -43,14 +43,14 @@ namespace Clubsy.Controllers
 
             db.Clubs.Add(club);
 
-            var admin = new ClubMember()
+            var admin = new ClubMembership()
             {
                 Club = club,
                 User = GetCurrentUser(),
                 IsAdmin = true
             };
 
-            db.ClubMembers.Add(admin);
+            db.Memberships.Add(admin);
 
             if (ModelState.IsValid)
             {
