@@ -1,14 +1,25 @@
-﻿@model Clubsy.Models.Club
+﻿@model Clubsy.Models.ClubViewModel
 
 <div>
     <div class="club" title="@Model.Name">
         <div class="container club-title-bar">
             <span class="container club-name">@Html.DisplayFor(model => model.Name)</span>
             @*<div class="club-links">*@
-                <ul>
-                    <li>Details</li>
-                    <li>Join</li>
-                </ul>
+            <ul>
+                <li>Details</li>
+                @{
+                    if (!Model.IsMember)
+                    {
+                        <li>
+                            @Html.ActionLink("Join", "Join", new { name = Model.Name })
+                        </li>
+                    }
+                    else
+                    {
+                        <li>(member)</li>
+                    }
+                }
+            </ul>
             @*</div>*@
         </div>
         <article class="club-description">@Html.DisplayFor(model => model.Description)</article>

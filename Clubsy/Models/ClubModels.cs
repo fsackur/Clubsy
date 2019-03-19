@@ -22,6 +22,8 @@ namespace Clubsy.Models
 
         [StringLength(1000)]
         public string Description { get; set; }
+
+        public virtual ICollection<ClubMembership> Members { get; set; }
     }
 
     public class ClubMembership

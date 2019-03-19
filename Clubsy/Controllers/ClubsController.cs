@@ -12,6 +12,7 @@ using Clubsy.Models;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Migrations;
+using System.Threading.Tasks;
 
 namespace Clubsy.Controllers
 {
@@ -19,8 +20,26 @@ namespace Clubsy.Controllers
     {
         public ActionResult Index()
         {
-            var model = db.Clubs.ToList();
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == userId)
+                               .Include(u => u.Memberships)
+                               .FirstOrDefault();
 
+            var clubs = db.Clubs.ToList();
+
+            var model = new List<ClubViewModel>();
+            foreach (var c in clubs)
+            {
+                var membership = user != null ? user.Memberships.FirstOrDefault(m => m.Club == c) : null;
+                model.Add(new ClubViewModel
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    IsMember = membership != null,
+                    IsAdmin = membership != null && membership.IsAdmin
+                });
+            }
+            
             return View(model);
         }
 
@@ -67,6 +86,30 @@ namespace Clubsy.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Join(string name, int? id)
+        {
+            var user = GetCurrentUser();
+            Club club;
+            if (id != null)
+                club = db.Clubs.Find(id);
+            else
+                club = db.Clubs.Find(name);
+
+            if (!user.IsMember(club))
+            {
+                db.Memberships.Add(new ClubMembership()
+                {
+                    Club = club,
+                    User = user,
+                    IsAdmin = false
+                });
+
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

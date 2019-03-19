@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Clubsy.Models
 {
@@ -29,6 +30,16 @@ namespace Clubsy.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        public bool IsMember(Club club)
+        {
+            return Memberships.FirstOrDefault(m => m.Club == club) != null;
+        }
+
+        public bool IsAdmin(Club club)
+        {
+            return Memberships.FirstOrDefault(m => m.Club == club && m.IsAdmin) != null;
         }
     }
 }
