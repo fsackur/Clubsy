@@ -44,14 +44,8 @@ namespace Clubsy.Controllers
 
         protected ApplicationUser GetCurrentUser()
         {
-            return UserManager.FindById(User.Identity.GetUserId());
+            return db.Users.Find(User.Identity.GetUserId());
         }
-
-        //protected bool UserIsAdmin(Club club)
-        //{
-        //    var user = GetCurrentUser();
-        //    return club.Admins.First(m => m.ApplicationUser == user) != null;
-        //}
 
         protected override void Dispose(bool disposing)
         {

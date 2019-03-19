@@ -33,21 +33,27 @@ namespace Clubsy.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(Club club)
+        public ActionResult Create(string name, string description)
         {
+            var club = new Club()
+            {
+                Name = name,
+                Description = description
+            };
+
+            db.Clubs.Add(club);
+
+            var admin = new ClubMember()
+            {
+                Club = club,
+                User = GetCurrentUser(),
+                IsAdmin = true
+            };
+
+            db.ClubMembers.Add(admin);
+
             if (ModelState.IsValid)
             {
-                db.Clubs.Add(club);
-
-                var admin = new ClubMember()
-                {
-                    ClubId = club.Id,
-                    UserId = User.Identity.GetUserId(),
-                    IsAdmin = true
-                };
-
-                db.ClubMembers.Add(admin);
-                
                 try
                 {
                     db.SaveChanges();

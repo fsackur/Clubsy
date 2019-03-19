@@ -33,86 +33,97 @@ namespace Clubsy.Migrations
             if (!db.Roles.Any(r => r.Name == "AppAdmin"))
             {
                 roleManager.Create(new IdentityRole { Name = "AppAdmin" });
+            }
+            if (!db.Roles.Any(r => r.Name == "AppUser"))
+            {
                 roleManager.Create(new IdentityRole { Name = "AppUser" });
             }
 
 
-            var fooUserName = "foo@foo.bar";
-            var arryUserName = "arry@redkn.app";
-            var chesterUserName = "chester@kg4.kxb";
 
-
-            if (!userManager.Users.Any(u => u.Email == fooUserName))
+            var foo = new ApplicationUser()
             {
-                userManager.Create(new ApplicationUser()
-                {
-                    FirstName = "foo",
-                    LastName = "bar",
-                    Email = "foo@foo.bar",
-                    UserName = "foo@foo.bar"
-                },
-                "P@ssword1");
-                //userManager.AddToRole(foouser.Id, "AppAdmin");
+                FirstName = "foo",
+                LastName = "bar",
+                Email = "foo@foo.bar",
+                UserName = "foo@foo.bar"
+            };
+            if (!userManager.Users.Any(u => u.UserName == foo.UserName))
+            {
+                userManager.Create(foo, "P@ssword1");
+                userManager.AddToRole(foo.Id, "AppAdmin");
+            }
+            else
+            {
+                foo = userManager.Users.First(u => u.UserName == foo.UserName);
             }
 
-            if (!userManager.Users.Any(u => u.Email == arryUserName))
+            var arry = new ApplicationUser()
             {
-                userManager.Create(new ApplicationUser()
-                {
-                    FirstName = "Arry",
-                    LastName = "Redknapp",
-                    Email = "arry@redkn.app",
-                    UserName = "arry@redkn.app"
-                },
-                "P@ssword1");
-                //userManager.AddToRole(arry.Id, "AppUser");
+                FirstName = "Arry",
+                LastName = "Redknapp",
+                Email = "arry@redkn.app",
+                UserName = "arry@redkn.app"
+            };
+            if (!userManager.Users.Any(u => u.UserName == arry.UserName))
+            {
+                userManager.Create(arry, "P@ssword1");
+                userManager.AddToRole(arry.Id, "AppUser");
+            }
+            else
+            {
+                arry = userManager.Users.First(u => u.UserName == arry.UserName);
             }
 
-            if (!userManager.Users.Any(u => u.Email == chesterUserName))
+            var chester = new ApplicationUser()
             {
-                userManager.Create(new ApplicationUser()
-                {
-                    FirstName = "Chester",
-                    LastName = "Bishop",
-                    Email = "chester@kg4.kxb",
-                    UserName = "chester@kg4.kxb"
-                },
-                "P@ssword1");
-                //userManager.AddToRole(chester.Id, "AppUser");
+                FirstName = "Chester",
+                LastName = "Bishop",
+                Email = "chester@kg4.kxb",
+                UserName = "chester@kg4.kxb"
+            };
+            if (!userManager.Users.Any(u => u.UserName == chester.UserName))
+            {
+                userManager.Create(chester, "P@ssword1");
+                userManager.AddToRole(chester.Id, "AppUser");
+            }
+            else
+            {
+                chester = userManager.Users.First(u => u.UserName == chester.UserName);
             }
 
 
             var norfolkenchants = new Club()
             {
                 Name = "Norfolk Enchants",
-                Description = "A bunch of no-hopers, desperate for a shot at the big time"
+                Description = "All skill levels welcome, hoping to improve on last year's 17th-place finish in the prestigious High Barnet Chicken Cottage Cup."
             };
 
             var chessbursters = new Club()
             {
                 Name = "Chessbursters",
-                Description = "A friendly bunch of shoe-gazers, relating better to symbolic carved figurines with highly constrained behaviour than to living organisms"
+                Description = "Do you like chess? Do you like Aliens? Well, this is the club to appreciate movies and board games with strong female leads!"
             };
 
             db.Clubs.Where(c => c.Name == norfolkenchants.Name || c.Name == chessbursters.Name).ForEachAsync(c => db.Clubs.Remove(c)).Wait();
             db.Clubs.AddOrUpdate(norfolkenchants);
             db.Clubs.AddOrUpdate(chessbursters);
 
-            //var arryMembership = new ClubMember()
-            //{
-            //    Club = norfolkenchants,
-            //    ApplicationUser = userManager.Users.First(u => u.UserName == arryUserName),
-            //    IsAdmin = true
-            //};
-            //db.ClubMembers.AddOrUpdate(arryMembership);
+            var arryMembership = new ClubMember()
+            {
+                Club = norfolkenchants,
+                User = userManager.Users.First(u => u.UserName == arry.UserName),
+                IsAdmin = true
+            };
+            db.ClubMembers.AddOrUpdate(arryMembership);
 
-            //var chesterMembership = new ClubMember()
-            //{
-            //    Club = chessbursters,
-            //    ApplicationUser = userManager.Users.First(u => u.UserName == chesterUserName),
-            //    IsAdmin = true
-            //};
-            //db.ClubMembers.AddOrUpdate(chesterMembership);
+            var chesterMembership = new ClubMember()
+            {
+                Club = chessbursters,
+                User = userManager.Users.First(u => u.UserName == chester.UserName),
+                IsAdmin = true
+            };
+            db.ClubMembers.AddOrUpdate(chesterMembership);
 
 
 
@@ -147,6 +158,7 @@ namespace Clubsy.Migrations
             
 
             // Uncomment this to attach a separate VS instance when migrating with Update-Databases
+            // Alternatively, uncomment line in Startup.cs
             //if (!System.Diagnostics.Debugger.IsAttached)
             //    System.Diagnostics.Debugger.Launch();
 
