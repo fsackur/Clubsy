@@ -12,22 +12,6 @@ namespace Clubsy.Models
 {
     public class Club
     {
-        public Club()
-        {
-            //Members = new List<ClubMember>();
-            //var user = HttpContext.Current.GetOwinContext()
-            //                      .GetUserManager<ApplicationUserManager>()
-            //                      .FindById(HttpContext.Current.User.Identity.GetUserId());
-
-            //var member = new ClubMember()
-            //{
-            //    ApplicationUser = user,
-            //    //Club = this,
-            //    IsAdmin = true
-            //};
-            //Members.Add(member);
-        }
-
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -67,11 +51,5 @@ namespace Clubsy.Models
         public string UserId { get; set; }
 
         public bool IsAdmin { get; set; }
-
-        //[ForeignKey("Club")]
-        //public virtual Club Club { get; set; }
-
-        //[ForeignKey("ApplicationUser")]
-        //public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

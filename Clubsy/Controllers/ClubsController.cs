@@ -39,15 +39,15 @@ namespace Clubsy.Controllers
             {
                 db.Clubs.Add(club);
 
-                //var admin = new ClubMember()
-                //{
-                //    //Club = @club,
-                //    ApplicationUser = GetCurrentUser(),
-                //    IsAdmin = true
-                //};
-                //@club.Members.Add(admin);
-                //@club.Members.Add(admin);
+                var admin = new ClubMember()
+                {
+                    ClubId = club.Id,
+                    UserId = User.Identity.GetUserId(),
+                    IsAdmin = true
+                };
 
+                db.ClubMembers.Add(admin);
+                
                 try
                 {
                     db.SaveChanges();
