@@ -18,14 +18,15 @@ namespace Clubsy.Controllers
 {
     public class ClubsController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm = null)
         {
             var userId = User.Identity.GetUserId();
             var user = db.Users.Where(u => u.Id == userId)
                                .Include(u => u.Memberships)
                                .FirstOrDefault();
 
-            var clubs = db.Clubs.ToList();
+            var clubs = db.Clubs.Where(r => searchTerm == null || r.Name.Contains(searchTerm))
+                                .ToList();
 
             var model = new List<ClubViewModel>();
             foreach (var c in clubs)
