@@ -52,5 +52,12 @@ namespace Clubsy.Controllers
         //    var user = GetCurrentUser();
         //    return club.Admins.First(m => m.ApplicationUser == user) != null;
         //}
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                db.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

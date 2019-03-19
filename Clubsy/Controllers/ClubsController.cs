@@ -48,7 +48,16 @@ namespace Clubsy.Controllers
                 //@club.Members.Add(admin);
                 //@club.Members.Add(admin);
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException e)
+                {
+                    var message = e.InnerException.InnerException.Message;
+                    ViewBag.DbValidationMessage = message;
+                    return View();
+                }
                 return RedirectToAction("Index");
             }
             return View();
