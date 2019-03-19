@@ -14,18 +14,18 @@ namespace Clubsy.Models
     {
         public Club()
         {
-            Members = new List<ClubMember>();
-            var user = HttpContext.Current.GetOwinContext()
-                                  .GetUserManager<ApplicationUserManager>()
-                                  .FindById(HttpContext.Current.User.Identity.GetUserId());
+            //Members = new List<ClubMember>();
+            //var user = HttpContext.Current.GetOwinContext()
+            //                      .GetUserManager<ApplicationUserManager>()
+            //                      .FindById(HttpContext.Current.User.Identity.GetUserId());
 
-            var member = new ClubMember()
-            {
-                ApplicationUser = user,
-                //Club = this,
-                IsAdmin = true
-            };
-            Members.Add(member);
+            //var member = new ClubMember()
+            //{
+            //    ApplicationUser = user,
+            //    //Club = this,
+            //    IsAdmin = true
+            //};
+            //Members.Add(member);
         }
 
         [Key]
@@ -41,11 +41,11 @@ namespace Clubsy.Models
         public string Description { get; set; }
 
         public virtual ICollection<ClubMember> Members { get; set; }
-        public virtual ICollection<ClubMember> Admins {
-            get {
-                return this.Members.Where(m => m.IsAdmin).ToList();
-            }
-        }
+        //public virtual ICollection<ClubMember> Admins {
+        //    get {
+        //        return this.Members.Where(m => m.IsAdmin).ToList();
+        //    }
+        //}
     }
 
     public class ClubMember
@@ -54,24 +54,24 @@ namespace Clubsy.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        //[Required]
+        [Required]
         //[ForeignKey("Club")]
-        //[Index("IX_FirstAndSecond", 1, IsUnique = true)]
-        //public int ClubId { get; set; }
+        [Index("IX_FirstAndSecond", 1, IsUnique = true)]
+        public int ClubId { get; set; }
 
-        //[Required]
-        //[StringLength(128)]
+        [Required]
+        [StringLength(128)]
         //[Column(TypeName = "NVARCHAR")]
         //[ForeignKey("ApplicationUser")]
-        //[Index("IX_FirstAndSecond", 2, IsUnique = true)]
-        //public string UserId { get; set; }
+        [Index("IX_FirstAndSecond", 2, IsUnique = true)]
+        public string UserId { get; set; }
 
         public bool IsAdmin { get; set; }
 
         //[ForeignKey("Club")]
-        public virtual Club Club { get; set; }
+        //public virtual Club Club { get; set; }
 
         //[ForeignKey("ApplicationUser")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        //public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

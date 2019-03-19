@@ -47,10 +47,10 @@ namespace Clubsy.Controllers
             return UserManager.FindById(User.Identity.GetUserId());
         }
 
-        protected bool UserIsAdmin(Club club)
-        {
-            var user = GetCurrentUser();
-            return club.Admins.First(m => m.ApplicationUser == user) != null;
-        }
+        //protected bool UserIsAdmin(Club club)
+        //{
+        //    var user = GetCurrentUser();
+        //    return club.Admins.First(m => m.ApplicationUser == user) != null;
+        //}
     }
 }

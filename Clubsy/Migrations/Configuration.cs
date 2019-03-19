@@ -98,21 +98,21 @@ namespace Clubsy.Migrations
             db.Clubs.AddOrUpdate(norfolkenchants);
             db.Clubs.AddOrUpdate(chessbursters);
 
-            var arryMembership = new ClubMember()
-            {
-                Club = norfolkenchants,
-                ApplicationUser = userManager.Users.First(u => u.UserName == arryUserName),
-                IsAdmin = true
-            };
-            db.ClubMembers.AddOrUpdate(arryMembership);
+            //var arryMembership = new ClubMember()
+            //{
+            //    Club = norfolkenchants,
+            //    ApplicationUser = userManager.Users.First(u => u.UserName == arryUserName),
+            //    IsAdmin = true
+            //};
+            //db.ClubMembers.AddOrUpdate(arryMembership);
 
-            var chesterMembership = new ClubMember()
-            {
-                Club = chessbursters,
-                ApplicationUser = userManager.Users.First(u => u.UserName == chesterUserName),
-                IsAdmin = true
-            };
-            db.ClubMembers.AddOrUpdate(chesterMembership);
+            //var chesterMembership = new ClubMember()
+            //{
+            //    Club = chessbursters,
+            //    ApplicationUser = userManager.Users.First(u => u.UserName == chesterUserName),
+            //    IsAdmin = true
+            //};
+            //db.ClubMembers.AddOrUpdate(chesterMembership);
 
 
 
