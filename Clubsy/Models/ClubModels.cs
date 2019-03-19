@@ -1,4 +1,5 @@
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,17 @@ namespace Clubsy.Models
         public Club()
         {
             Members = new List<ClubMember>();
-            //Admins = new List<ClubMember>();
+            var user = HttpContext.Current.GetOwinContext()
+                                  .GetUserManager<ApplicationUserManager>()
+                                  .FindById(HttpContext.Current.User.Identity.GetUserId());
+
+            var member = new ClubMember()
+            {
+                ApplicationUser = user,
+                //Club = this,
+                IsAdmin = true
+            };
+            Members.Add(member);
         }
 
         [Key]

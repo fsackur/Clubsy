@@ -11,6 +11,7 @@ using System.Web.Http.Description;
 using Clubsy.Models;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity.Migrations;
 
 namespace Clubsy.Controllers
 {
@@ -36,17 +37,18 @@ namespace Clubsy.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Clubs.Add(club);
+
                 //var admin = new ClubMember()
                 //{
-                //    ClubId = club.Id,
-                //    UserId = User.Identity.GetUserId(),
+                //    //Club = @club,
+                //    ApplicationUser = GetCurrentUser(),
                 //    IsAdmin = true
                 //};
-                //club.Members.Add(admin);
-                //club.Admins.Add(admin);
+                //@club.Members.Add(admin);
+                //@club.Members.Add(admin);
 
-                //db.Clubs.Add(club);
-                //db.SaveChanges();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
