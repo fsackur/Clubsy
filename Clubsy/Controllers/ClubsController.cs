@@ -25,7 +25,8 @@ namespace Clubsy.Controllers
                                .Include(u => u.Memberships)
                                .FirstOrDefault();
 
-            var clubs = db.Clubs.Where(r => searchTerm == null || r.Name.Contains(searchTerm))
+            var clubs = db.Clubs.OrderBy(c => c.Name)
+                                .Where(r => searchTerm == null || r.Name.Contains(searchTerm))
                                 .ToList();
 
             var model = new List<ClubViewModel>();

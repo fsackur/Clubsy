@@ -40,6 +40,14 @@ namespace Clubsy.Migrations
             }
 
 
+            
+            // Nuke it from orbit
+            db.Database.ExecuteSqlCommand("DELETE FROM ClubMemberships");
+            db.Database.ExecuteSqlCommand("DELETE FROM Events");
+            db.Database.ExecuteSqlCommand("DELETE FROM Clubs");
+            db.Database.ExecuteSqlCommand("DELETE FROM AspNetUsers");
+
+
 
             var foo = new ApplicationUser()
             {
@@ -98,16 +106,15 @@ namespace Clubsy.Migrations
                 Name = "Norfolk Enchants",
                 Description = "All skill levels welcome, hoping to improve on last year's 17th-place finish in the prestigious High Barnet Chicken Cottage Cup."
             };
+            db.Clubs.AddOrUpdate(norfolkenchants);
 
             var chessbursters = new Club()
             {
                 Name = "Chessbursters",
                 Description = "Do you like chess? Do you like Aliens? Well, this is the club to appreciate movies and board games with strong female leads!"
             };
-
-            db.Clubs.Where(c => c.Name == norfolkenchants.Name || c.Name == chessbursters.Name).ForEachAsync(c => db.Clubs.Remove(c)).Wait();
-            db.Clubs.AddOrUpdate(norfolkenchants);
             db.Clubs.AddOrUpdate(chessbursters);
+            
 
             var arryMembership = new ClubMembership()
             {
@@ -156,6 +163,17 @@ namespace Clubsy.Migrations
             db.Events.AddOrUpdate(knightOut);
 
             
+            for (var i = 0; i < 26; i++)
+            {
+                for (var j = 0; j < 26; j++)
+                {
+                    db.Clubs.Add(new Club()
+                    {
+                        Name = new string(new char[2] { (char)(int)(65 + i), (char)(int)(65 + j) }),
+                        Description = "A dummy test club"
+                    });
+                }
+            }
 
             // Uncomment this to attach a separate VS instance when migrating with Update-Databases
             // Alternatively, uncomment line in Startup.cs
