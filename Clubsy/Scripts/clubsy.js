@@ -29,6 +29,24 @@
         $input.autocomplete(options);
     };
 
+    var getPage = function () {
+        var $a = $(this);
+
+        var options = {
+            url: $a.attr("href"),
+            data: $("form").serialize(),
+            type: "get"
+        };
+
+        $.ajax(options).done(function (data) {
+            var target = $a.parents("div.pagedList").attr("data-clubsy-target");
+            $(target).replaceWith(data);
+        });
+
+        return false;
+    };
+
     $("form[data-clubsy-filter='club']").submit(ajaxFormSubmit);
     $("input[data_clubsy_autocomplete_action]").each(createAutoComplete);
+    $(".body-content").on("click", ".pagedList a", getPage);
 });

@@ -43,6 +43,7 @@ namespace Clubsy
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.theme.css",
                         "~/Content/themes/base/jquery.ui.tooltip.css",
+                        "~/Content/PagedList.css",
                         "~/Content/bootstrap.css",
                         "~/Content/site.css"));
         }

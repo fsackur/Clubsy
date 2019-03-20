@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Migrations;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace Clubsy.Controllers
 {
@@ -28,7 +29,7 @@ namespace Clubsy.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Index(string searchTerm = null)
+        public ActionResult Index(string searchTerm = null, int page = 1, int pageSize = 10)
         {
             var userId = User.Identity.GetUserId();
             var user = db.Users.Where(u => u.Id == userId)
@@ -52,10 +53,12 @@ namespace Clubsy.Controllers
                 });
             }
 
-            if (Request.IsAjaxRequest())
-                return PartialView("_ClubList", model);
+            var pagedListModel = model.ToPagedList(page, pageSize);
 
-            return View(model);
+            if (Request.IsAjaxRequest())
+                return PartialView("_ClubList", pagedListModel);
+
+            return View(pagedListModel);
         }
 
         [Authorize]

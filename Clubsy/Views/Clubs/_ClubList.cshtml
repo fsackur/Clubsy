@@ -1,6 +1,13 @@
-﻿@model IEnumerable<ClubViewModel>
+﻿@model IPagedList<ClubViewModel>
 
 <div id="clubList">
+    
+    <div class="pagedList" data-clubsy-target="#clubList">
+        @Html.PagedListPager(Model,
+                             page => Url.Action("Index", new { page }),
+                             PagedListRenderOptions.MinimalWithItemCountText)
+    </div>
+
     @foreach (var item in Model)
     {
         <div class="club">
