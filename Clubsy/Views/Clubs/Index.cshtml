@@ -9,20 +9,23 @@
     @Html.ActionLink("Start a new club", "Create")
 </p>
 
-@*<form method="get">
-    <input type="search" name="searchTerm" />
-    <input type="submit" value="Search" />
-</form>*@
-
 @using (Ajax.BeginForm(
+                "Index",
+                null,
                 new AjaxOptions
                 {
                     HttpMethod = "get",
                     InsertionMode = InsertionMode.Replace,
                     UpdateTargetId = "clubList"
-                }))
+                },
+                new
+                {
+                    data_clubsy_filter = "club",
+                    //data_clubsy_autocomplete_action = Url.Action("Autocomplete")
+                }
+            ))
 {
-    <input type="search" name="searchTerm" />
+    <input type="search" name="searchTerm" data_clubsy_autocomplete_action=@Url.Action("Autocomplete") />
     <input type="submit" value="Search" />
 }
 
