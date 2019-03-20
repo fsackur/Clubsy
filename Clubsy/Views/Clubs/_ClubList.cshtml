@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Clubsy.Models.ClubViewModel>
+
+<div id="clubList">
+    @foreach (var item in Model)
+    {
+        <div class="club">
+            @Html.Partial("_Club", item)
+        </div>
+    }
+</div>

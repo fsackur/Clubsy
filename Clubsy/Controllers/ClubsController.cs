@@ -41,7 +41,10 @@ namespace Clubsy.Controllers
                     IsAdmin = membership != null && membership.IsAdmin
                 });
             }
-            
+
+            if (Request.IsAjaxRequest())
+                return PartialView("_ClubList", model);
+
             return View(model);
         }
 
@@ -98,7 +101,7 @@ namespace Clubsy.Controllers
             if (id != null)
                 club = db.Clubs.Find(id);
             else
-                club = db.Clubs.Find(name);
+                club = db.Clubs.Where(c => c.Name == name).Single();
 
             if (!user.IsMember(club))
             {

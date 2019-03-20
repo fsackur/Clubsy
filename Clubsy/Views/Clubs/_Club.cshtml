@@ -1,27 +1,27 @@
 ﻿@model Clubsy.Models.ClubViewModel
 
-<div>
-    <div class="club" title="@Model.Name">
-        <div class="container club-title-bar">
-            <span class="container club-name">@Html.DisplayFor(model => model.Name)</span>
-            @*<div class="club-links">*@
-            <ul>
-                <li>Details</li>
+<div class="club" title="@Model.Name">
+    <div class="container club-title-bar">
+        <span class="container club-name">
+            @Html.DisplayFor(model => model.Name)
+        </span>
+        <ul>
+            <li>Details</li>
+            <li>
                 @{
-                    if (!Model.IsMember)
+                    if (Model.IsMember)
                     {
-                        <li>
-                            @Html.ActionLink("Join", "Join", new { name = Model.Name })
-                        </li>
+                        @Html.Raw("Joined");
                     }
                     else
                     {
-                        <li>(member)</li>
+                        @Html.ActionLink("Join", "Join", new { name = Model.Name });
                     }
                 }
-            </ul>
-            @*</div>*@
-        </div>
-        <article class="club-description">@Html.DisplayFor(model => model.Description)</article>
+            </li>
+        </ul>
     </div>
+    <article class="club-description">
+        @Html.DisplayFor(model => model.Description)
+    </article>
 </div>
