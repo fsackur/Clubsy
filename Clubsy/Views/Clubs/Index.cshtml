@@ -4,28 +4,34 @@
     ViewBag.Title = "Clubs";
 }
 
-<h2>Clubs</h2>
-<p>
-    @Html.ActionLink("Start a new club", "Create")
-</p>
 
-@using (Ajax.BeginForm(
-                "Index",
-                null,
-                new AjaxOptions
-                {
-                    HttpMethod = "get",
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "clubList"
-                },
-                new
-                {
-                    data_clubsy_filter = "club",
-                }
-            ))
-{
-    <input type="search" name="searchTerm" data-clubsy-filter="club" data-clubsy-action=@Url.Action("Autocomplete") />
-    <input type="submit" value="Search" />
-}
+<div class="club" title="Clubs">
+    <div class="container title-bar main-title-bar">
+        <div class="container title">
+            <p>Clubs</p>
+            <div class="subtitle">@Html.ActionLink("Start a new club", "Create")</div>
+        </div>
+        <div class="container nav">
+            @using (Ajax.BeginForm(
+                    "Index",
+                    null,
+                    new AjaxOptions
+                    {
+                        HttpMethod = "get",
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "clubList"
+                    },
+                    new
+                    {
+                        data_clubsy_filter = "club",
+                    }
+                ))
+            {
+                <input type="search" name="searchTerm" data-clubsy-filter="club" data-clubsy-action=@Url.Action("Autocomplete") />
+                <input type="submit" value="Search" />
+            }
+        </div>
+    </div>
+</div>
 
 @Html.Partial("_ClubList")

@@ -1,25 +1,27 @@
 ﻿@model ClubViewModel
 
 <div class="club" title="@Model.Name">
-    <div class="container club-title-bar">
-        <span class="container club-name">
+    <div class="container title-bar club-title-bar">
+        <div class="container title">
             @Html.DisplayFor(model => model.Name)
-        </span>
-        <ul>
-            <li>Details</li>
-            <li>
-                @{
-                    if (Model.IsMember)
-                    {
-                        @Html.Raw("Joined");
+        </div>
+        <div class="container nav">
+            <ul>
+                <li>Details</li>
+                <li>
+                    @{
+                        if (Model.IsMember)
+                        {
+                            @Html.Raw("Joined");
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Join", "Join", new { name = Model.Name });
+                        }
                     }
-                    else
-                    {
-                        @Html.ActionLink("Join", "Join", new { name = Model.Name });
-                    }
-                }
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
     <article class="club-description">
         @Html.DisplayFor(model => model.Description)
