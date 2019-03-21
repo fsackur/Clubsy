@@ -1,6 +1,7 @@
 namespace Clubsy.Models
 {
     using Microsoft.AspNet.Identity;
+    using PagedList;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -9,6 +10,42 @@ namespace Clubsy.Models
     using System.Linq;
     using System.Security.Principal;
     using System.Web;
+
+    public class ClubViewModelPagedList : PagedList<Club>, IPagedList<ClubViewModel>
+    {
+        public ClubViewModelPagedList(IQueryable<Club> source, int pageNumber, int pageSize, ApplicationUser user) :
+            base (source, pageNumber, pageSize)
+        {
+            Subset.AddRange(source.Skip((pageNumber -1) * pageSize)
+                                .Take(pageSize)
+                                .ToList()
+                                .Select<Club, ClubViewModel>(c => {
+                                    var membership = user != null ? user.Memberships.FirstOrDefault(m => m.Club == c) : null;
+                                    return new ClubViewModel
+                                    {
+                                        Name = c.Name,
+                                        Description = c.Description,
+                                        IsMember = membership != null,
+                                        IsAdmin = membership != null && membership.IsAdmin
+                                    };
+                                })
+                                );
+        }
+        protected new List<ClubViewModel> Subset = new List<ClubViewModel>();
+        public new ClubViewModel this[int index] { get { return Subset[index]; } }
+        public new IEnumerator<ClubViewModel> GetEnumerator()
+        {
+            return Subset.GetEnumerator();
+        }
+    }
+
+    public static class ClubViewModelHelper
+    {
+        public static IPagedList<ClubViewModel> ToClubViewModelPagedList(this IQueryable<Club> source, int pageNumber, int pageSize, ApplicationUser user)
+        {
+            return (IPagedList<ClubViewModel>) new ClubViewModelPagedList(source, pageNumber, pageSize, user);
+        }
+    }
 
     public class ClubViewModel
     {

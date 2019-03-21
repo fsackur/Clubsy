@@ -38,23 +38,7 @@ namespace Clubsy.Controllers
 
             var model = db.Clubs.OrderBy(c => c.Name)
                                 .Where(r => searchTerm == null || r.Name.Contains(searchTerm))
-                                .ToPagedList(page, pageSize);
-
-
-            //var cvmList = new List<ClubViewModel>();
-            //foreach (var c in clubs)
-            //{
-            //    var membership = user != null ? user.Memberships.FirstOrDefault(m => m.Club == c) : null;
-            //    cvmList.Add(new ClubViewModel
-            //    {
-            //        Name = c.Name,
-            //        Description = c.Description,
-            //        IsMember = membership != null,
-            //        IsAdmin = membership != null && membership.IsAdmin
-            //    });
-            //}
-            //var model = cvmList.ToPagedList(page, pageSize);
-
+                                .ToClubViewModelPagedList(page, pageSize, user);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_ClubList", model);
