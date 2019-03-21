@@ -15,6 +15,8 @@ namespace Clubsy
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/respond.js",
+                        "~/Scripts/core.js",
+                        "~/Scripts/lodash.js",
                         "~/Scripts/clubsy.js"));
             
 
