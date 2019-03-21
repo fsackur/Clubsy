@@ -21,11 +21,10 @@
                 new
                 {
                     data_clubsy_filter = "club",
-                    //data_clubsy_autocomplete_action = Url.Action("Autocomplete")
                 }
             ))
 {
-    <input type="search" name="searchTerm" data_clubsy_autocomplete_action=@Url.Action("Autocomplete") />
+    <input type="search" name="searchTerm" data-clubsy-filter="club" data-clubsy-action=@Url.Action("Autocomplete") />
     <input type="submit" value="Search" />
 }
 

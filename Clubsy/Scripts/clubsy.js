@@ -1,33 +1,27 @@
 ﻿$(function () {
 
-    var ajaxFormSubmit = function () {
-        var $form = $(this);
+    var ajaxFilterChange = _.debounce(
+        function () {
+            var $input = $(this);
+            var $form = $input.parent();
 
-        var options = {
-            url: $form.attr("action"),
-            type: $form.attr("method"),
-            data: $form.serialize()
-        };
+            var options = {
+                url: $form.attr("action"),
+                type: $form.attr("method"),
+                data: $form.serialize()
+            };
 
-        $.ajax(options).done(function (data) {
-            var $target = $($form.attr("data-ajax-update"));
-            var $newHtml = $(data);
-            $target.replaceWith($newHtml);
-            $newHtml.effect("highlight");
-        });
+            $.ajax(options).done(function (data) {
+                var $target = $($form.attr("data-ajax-update"));
+                var $newHtml = $(data);
+                $target.replaceWith($newHtml);
+            });
 
-        return false;
-    };
-
-    var createAutoComplete = function () {
-        var $input = $(this);   // 'this' gets each matching DOM element matching "input[data_clubsy_autocomplete_action]"
-
-        var options = {
-            source: $input.attr("data_clubsy_autocomplete_action")
-        };
-
-        $input.autocomplete(options);
-    };
+            return false;
+        },
+        300,
+        { leading: true, trailing: true, maxWait: 1000 }
+    );
 
     var getPage = function () {
         var $a = $(this);
@@ -46,7 +40,6 @@
         return false;
     };
 
-    $("form[data-clubsy-filter='club']").submit(ajaxFormSubmit);
-    $("input[data_clubsy_autocomplete_action]").each(createAutoComplete);
+    $("input[data-clubsy-filter='club']").on("keyup", ajaxFilterChange);
     $(".body-content").on("click", ".pagedList a", getPage);
 });

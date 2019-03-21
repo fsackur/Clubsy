@@ -19,16 +19,6 @@ namespace Clubsy.Controllers
 {
     public class ClubsController : BaseController
     {
-        public ActionResult Autocomplete (string term)
-        {
-            var model = db.Clubs.OrderBy(c => c.Name)
-                                .Where(c => c.Name.Contains(term))
-                                .Take(10)
-                                .Select(c => new { label = c.Name });
-
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult Index(string searchTerm = null, int page = 1, int pageSize = 10)
         {
             var userId = User.Identity.GetUserId();
