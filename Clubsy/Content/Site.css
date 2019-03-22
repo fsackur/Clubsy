@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    /*background-image: radial-gradient(#fff4c2, #ffeaac);*/
+    background-image: radial-gradient(#e2d8ac, #d8c690);    /*sand*/
+    /*background-image: radial-gradient(#debe76 60%, #d0aa67);*/ /*dark gold*/
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -28,7 +31,10 @@ a {
 }
 
 .title-bar {
-    background-color: cornflowerblue;
+    background-color: #598ce8;
+    /*background-image: linear-gradient(#598ce8, #3065c5);*/ /*mid-blue*/
+    background-image: linear-gradient(#0c4ec5, #093c9a);    /*royal blue*/
+    color: aliceblue;
     border-radius: 2px;
     width: 100%;
     float: left;
