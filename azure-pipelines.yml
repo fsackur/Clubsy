@@ -24,9 +24,12 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true'
+    #msbuildArgs: '/p:DeployOnBuild=false /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:PackageLocation="D:\LocalServer\web1.zip"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    logProjectEvents: true
+    createLogFile: true
+    logFileVerbosity: 'detailed'
 
 - task: VSTest@2
   inputs:
