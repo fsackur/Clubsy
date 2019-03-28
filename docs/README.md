@@ -1,6 +1,6 @@
 [![Build Status](https://dev.azure.com/dustyfox/Clubsy/_apis/build/status/fsackur.Clubsy?branchName=master)](https://dev.azure.com/dustyfox/Clubsy/_build/latest?definitionId=1&branchName=master)
 
-# Clubsy
+# ![Clubsy](img/clubsy_logo.png | width=267)
 
 Manage and sign up for events run by clubs.
 
